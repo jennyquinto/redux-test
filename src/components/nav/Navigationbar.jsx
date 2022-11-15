@@ -36,6 +36,7 @@ const Navigationbar = ({ isAuthentication }) => {
             {isAuthentication ? (
               <Nav className="justify-content-end flex-grow-1 pe-3 gap-3 m-3">
                 <NavLink to="/home" className={({isActive})=>isActive?'navLink navLink--active': 'navLink ' }>Home</NavLink>
+                <NavLink to="/add" className={({isActive})=>isActive?'navLink navLink--active': 'navLink ' }>Nueva Paleta</NavLink>
                 <button onClick={logOut}>Logout</button>
               </Nav>
             ) : (

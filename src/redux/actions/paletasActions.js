@@ -3,12 +3,12 @@ import { dataBase } from "../../firebase/firebaseConfig";
 import { paletasTypes } from "../types/paletasTypes";
 
 const collectionName = 'paletas';
+const paletasCollection = collection(dataBase, collectionName);
 
 
 
 export const actionFillPaletasAsync = () => {
     return async (dispatch) => {
-        const paletasCollection = collection(dataBase, collectionName);
         const querySnapshot = await getDocs(paletasCollection);
         const paletas = [];
         try {

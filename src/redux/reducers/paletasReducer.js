@@ -5,11 +5,11 @@ const initialState = {
 
 export const paletasReducer = (state = initialState, action) => {
 
-    switch (action.types) {
+    switch (action.type) {
 
         case paletasTypes.PALETAS_FILL:
 
-            return { ...state, paletas: action.payload};
+            return { ...state, paletas: [...action.payload]};
 
         default:
             return state;
