@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { schemaLogin } from "../services/data";
-import { actionLoginAsync } from "../redux/actions/userActions";
+import { actionLoginAsync, loginProviderAsync } from "../redux/actions/userActions";
+import googleLogo from "../assets/imagenes/gogle_logo.png"
 
 const Login = () => {
   const dispatch=useDispatch()
@@ -14,6 +15,11 @@ const Login = () => {
     
     dispatch(actionLoginAsync(data))
   }
+
+  const handleLoginGoogle = () => {
+    dispatch(loginProviderAsync('google'))
+  }
+
   return (
     <div className="p-5">
     <h1>Iniciar Sesión</h1>
@@ -40,6 +46,7 @@ const Login = () => {
       <Button variant="warning" type="submit" className="mt-3 mb-3">
         Iniciar Sesión
       </Button>
+      <img src={googleLogo} alt="Google" style={{width: 50, marginLeft: 30}} onClick={handleLoginGoogle} />
     </Form>
     <Link to="/Register">¿Desea crear una cuenta?</Link>
   </div>

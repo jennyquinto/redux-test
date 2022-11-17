@@ -1,5 +1,6 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase/firebaseConfig";
+import { google } from "../../firebase/firebaseConfig";
 
 import { userTypes } from "../types/userTypes";
 
@@ -68,6 +69,36 @@ export const actionLoginAsync = ({ email, password }) => {
 
   }
 }
+
+export const loginProviderAsync = (provider) => {
+  return (dispatch) => {
+    signInWithPopup(auth, google)
+      .then((result) => {
+        const user = result.user;
+        console.log(user)
+        const { displayName, accessToken, photoURL, phoneNumber } = user.auth.currentUser
+        dispatch(actionLoginSync({
+          email: user.email, 
+          name: displayName,
+          accessToken,
+          avatar: photoURL,
+          phoneNumber,
+          error: false
+        }))
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        console.log(errorMessage);
+        dispatch(actionLoginSync({
+          error: true,
+          errorMessage
+        }))
+      })
+  }
+}
+
 export const actionLoginSync = (user) => {
   return {
     type: userTypes.USER_LOGIN,
