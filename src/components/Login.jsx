@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
-import { schemaLogin } from "../services/data";
+import { loginProvider, schemaLogin } from "../services/data";
 import { actionLoginAsync, loginProviderAsync } from "../redux/actions/userActions";
 import googleLogo from "../assets/imagenes/gogle_logo.png"
 
@@ -16,8 +16,8 @@ const Login = () => {
     dispatch(actionLoginAsync(data))
   }
 
-  const handleLoginGoogle = () => {
-    dispatch(loginProviderAsync('google'))
+  const handleLoginGoogleOrFacebook = (provider) => {
+    dispatch(loginProviderAsync(provider))
   }
 
   return (
@@ -46,7 +46,13 @@ const Login = () => {
       <Button variant="warning" type="submit" className="mt-3 mb-3">
         Iniciar Sesión
       </Button>
-      <img src={googleLogo} alt="Google" style={{width: 50, marginLeft: 30}} onClick={handleLoginGoogle} />
+      {/* <img src={googleLogo} alt="Google" style={{width: 50, marginLeft: 30}} onClick={handleLoginGoogle} /> */}
+      {
+        loginProvider.map((provider, index) =>(
+          <img key={index} src={provider.image} alt={provider.name} style={{width: 50, marginLeft: 30}} 
+          onClick={()=>{handleLoginGoogleOrFacebook(provider.provider)}} />
+        ))
+      }
     </Form>
     <Link to="/Register">¿Desea crear una cuenta?</Link>
   </div>

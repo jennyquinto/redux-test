@@ -72,7 +72,7 @@ export const actionLoginAsync = ({ email, password }) => {
 
 export const loginProviderAsync = (provider) => {
   return (dispatch) => {
-    signInWithPopup(auth, google)
+    signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
         console.log(user)

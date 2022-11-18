@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { facebook, google } from '../firebase/firebaseConfig';
 const passwordRegex =
   /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,10}$/;
 
@@ -88,3 +89,17 @@ export const category = [
     value: 4,
   },
 ];
+
+export const loginProvider = [
+  {
+    name: "google",
+    image: "https://assets.stickpng.com/images/5847f9cbcef1014c0b5e48c8.png",
+    provider: google,
+  },
+  {
+    name: "facebook",
+    image: "https://logodownload.org/wp-content/uploads/2014/09/facebook-logo-3-1.png",
+    provider: facebook,
+  },
+];
+

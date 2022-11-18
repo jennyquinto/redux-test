@@ -1,13 +1,23 @@
 import React from 'react'
 import { Button, FloatingLabel, Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { actionAddPaletasAsync } from '../redux/actions/paletasActions'
 import { category, inputList } from '../services/data'
+import { fileUpLoad } from '../services/fileUpload'
 
 const AddPaletas = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const dispatch = useDispatch();
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async(data) => {
+        //console.log(data);
+        const URLimage = await fileUpLoad(data.image[0]);
+        const paleta = {
+            ...data,
+            image: URLimage
+        }
+        dispatch(actionAddPaletasAsync(paleta)) 
     }
     return (
         <div>
